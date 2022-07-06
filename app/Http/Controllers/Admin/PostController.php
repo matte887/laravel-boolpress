@@ -68,7 +68,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this_post = Post::findOrFail($id);
+        return view('admin.posts.edit', compact('this_post'));
     }
 
     /**
@@ -80,7 +81,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->getValidationRules());
+        $data = $request->all();
+        $post = Post::findOrFail($id);
+        // Questa non si può fare perché c'è lo slug che va rigenerato in base al nuovo titolo
+        // $post->update($data);
+        $post->fill($data);
+        $post->slug = $this->generatePostSlug($post->title);
+        $post->save();
+        return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
     /**
