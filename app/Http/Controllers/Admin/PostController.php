@@ -45,6 +45,7 @@ class PostController extends Controller
         // $post->slug = Str::slug($post->title, '-');
         $post->slug = $this->generatePostSlug($post->title);
         $post->save();
+        return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
     /**
