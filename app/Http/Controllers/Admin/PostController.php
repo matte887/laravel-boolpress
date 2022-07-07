@@ -43,7 +43,8 @@ class PostController extends Controller
         $post = new Post();
         $post->fill($data);
         // $post->slug = Str::slug($post->title, '-');
-        $post->slug = $this->generatePostSlug($post->title);
+        // $post->slug = $this->generatePostSlug($post->title);
+        $post->slug = Post::generatePostSlug($post->title);
         $post->save();
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
@@ -87,7 +88,7 @@ class PostController extends Controller
         // Questa non si può fare perché c'è lo slug che va rigenerato in base al nuovo titolo
         // $post->update($data);
         $post->fill($data);
-        $post->slug = $this->generatePostSlug($post->title);
+        $post->slug = Post::generatePostSlug($post->title);
         $post->save();
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
@@ -112,17 +113,17 @@ class PostController extends Controller
         ];
     }
 
-    private function generatePostSlug($title) {
-        $basic_slug = Str::slug($title, '-');
-        $slug = $basic_slug;
-        $counter = 1;
-        $search_post = Post::where('slug', $slug)->first();
-        while ($search_post) {
-            $slug = $basic_slug . '-' . $counter;
-            $search_post = Post::where('slug', '=', $slug)->first();
-            $counter++;
-        }
+    // private function generatePostSlug($title) {
+    //     $basic_slug = Str::slug($title, '-');
+    //     $slug = $basic_slug;
+    //     $counter = 1;
+    //     $search_post = Post::where('slug', $slug)->first();
+    //     while ($search_post) {
+    //         $slug = $basic_slug . '-' . $counter;
+    //         $search_post = Post::where('slug', '=', $slug)->first();
+    //         $counter++;
+    //     }
 
-        return $slug;
-    }
+    //     return $slug;
+    // }
 }
