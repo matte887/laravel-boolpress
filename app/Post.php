@@ -15,6 +15,11 @@ class Post extends Model
         'content'
     ];
 
+    // Questa è la tabella dipendente (per questo si usa belongsTo): ogni post ha solo una categoria, per questo la funzione si chiama "category".
+    public function category() {
+        return $this->belongsTo('App\Category');
+    }
+
     public static function generatePostSlug($title) {
         $basic_slug = Str::slug($title, '-');
         $slug = $basic_slug;
