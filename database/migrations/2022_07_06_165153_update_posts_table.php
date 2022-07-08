@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateNometabellaTable extends Migration
+// Il nome di questa tabella è stato modificato da 2022_07_06_165153_update_nometabella_table.php a quello attuale. Di conseguenza è stato cambiato anche il nome della classe.
+class UpdatepostsTable extends Migration
 {
     /**
      * Run the migrations.
