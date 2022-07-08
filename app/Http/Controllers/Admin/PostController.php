@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -29,7 +30,8 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -48,6 +50,10 @@ class PostController extends Controller
         // $post->slug = $this->generatePostSlug($post->title);
         $post->slug = Post::generatePostSlug($post->title);
         $post->save();
+
+        // Questo lo facciamo dopo save, perché solo dopo save avremo l'id del post.
+        // In questo specifico caso potremmo usare anche "attach". Mentre in edit va usato questo (altrimenti bisognerebbe fare "attach" e "detach")
+        $post->tags()->sync($data['tags']);
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
