@@ -63,7 +63,8 @@ class PostController extends Controller
         $post_category = $this_post->category; // -> con questa sintassi andiamo a prendere la funzione "category" presente nel model "Post"
         // Se volessimo prelevare tutti i post relativi ad una categoria, basterebbe fare
         // $categoryPosts = $post_category->posts;
-        return view('admin.posts.show', compact('this_post', 'post_category'));
+        $post_tags = $this_post->tags;
+        return view('admin.posts.show', compact('this_post', 'post_category', 'post_tags'));
     }
 
     /**
