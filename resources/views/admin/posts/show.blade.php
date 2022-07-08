@@ -8,7 +8,7 @@
             @forelse ($post_tags as $tag)
                 {{$tag->name}}{{$loop->last ? '.' : ', '}}
             @empty
-                
+                Nessun tag selezionato.
             @endforelse
         </p>
         <p>{{ $this_post->content }}</p>

@@ -23,6 +23,19 @@
 
             </select>
         </div>
+
+        <div class="my-4">
+            <p>Select tags</p>
+            @foreach ($tags as $tag)
+            <div class="form-check">
+                <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" {{ ($this_post->tags->contains($tag) || in_array($tag->id, old('tags', []))) ? 'checked' : '' }}>
+                <label class="form-check-label" for="{{ $tag->id }}">
+                    {{ $tag->name }}
+                </label>
+            </div>
+            @endforeach
+        </div>
+
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="content" name="content" rows="10">{{ old('content') ? old('content') : $this_post->content }}</textarea>

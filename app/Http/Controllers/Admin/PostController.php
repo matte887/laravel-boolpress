@@ -53,7 +53,10 @@ class PostController extends Controller
 
         // Questo lo facciamo dopo save, perché solo dopo save avremo l'id del post.
         // In questo specifico caso potremmo usare anche "attach". Mentre in edit va usato questo (altrimenti bisognerebbe fare "attach" e "detach")
-        $post->tags()->sync($data['tags']);
+        // La facciamo solo se vengono selezionati tag
+        if(isset($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        }
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
@@ -83,7 +86,8 @@ class PostController extends Controller
     {
         $this_post = Post::findOrFail($id);
         $categories = Category::all();
-        return view('admin.posts.edit', compact('this_post', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('this_post', 'categories', 'tags'));
     }
 
     /**
@@ -103,6 +107,12 @@ class PostController extends Controller
         $post->fill($data);
         $post->slug = Post::generatePostSlug($post->title);
         $post->save();
+
+        if(isset($data['tags'])) {
+            $post->tags()->sync($data['tags']);
+        } else {
+            $post->tags()->sync([]);
+        }
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
@@ -115,6 +125,8 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_destroy = Post::findOrFail($id);
+        // Questo serve ad eliminare i dati relativi a questo id anche nella tabella ponte (altrimenti potrebbe bloccarsi l'app)
+        $post_to_destroy->tags()->sync([]);
         $post_to_destroy->delete();
         return redirect()->route('admin.posts.index');
     }
