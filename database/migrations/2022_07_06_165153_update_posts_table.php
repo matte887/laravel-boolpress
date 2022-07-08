@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 // Il nome di questa tabella è stato modificato da 2022_07_06_165153_update_nometabella_table.php a quello attuale. Di conseguenza è stato cambiato anche il nome della classe.
-class UpdatepostsTable extends Migration
+class UpdatePostsTable extends Migration
 {
     /**
      * Run the migrations.
