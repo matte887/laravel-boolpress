@@ -123,7 +123,8 @@ class PostController extends Controller
         return [
             'title' => 'required',
             'category_id' => 'nullable|exists:categories,id',
-            'content' => 'required'
+            'content' => 'required',
+            'tags' => 'nullable|exists:tags,id'
         ];
     }
 
