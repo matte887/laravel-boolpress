@@ -59,6 +59,12 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.categories.index') }}">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                    View posts by type
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.posts.create') }}">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                     Create a new post
