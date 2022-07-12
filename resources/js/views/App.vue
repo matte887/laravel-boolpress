@@ -1,17 +1,14 @@
 <template>
-  <div class="container">
-    <h1>Ciao, sono il front office</h1>
-    <WorkInProgress />
-  </div>
+    <Posts />
 </template>
 
 <script>
-import WorkInProgress from "../components/WorkInProgress.vue";
+import Posts from "../components/Posts.vue";
 
 export default {
   name: "app",
   components: {
-    WorkInProgress
+    Posts
   }
 };
 </script>
