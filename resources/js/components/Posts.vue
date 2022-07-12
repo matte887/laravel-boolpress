@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h2 class="text-center my-3">Lista Ricette</h2>
+    <p>Totale post: {{ totalPosts }}.</p>
     <div class="row row-cols-3">
       <div class="col" v-for="post in posts" :key="post.id">
         <div class="card my-3">
@@ -23,6 +24,39 @@
         </div>
       </div>
     </div>
+    <nav aria-label="...">
+      <ul class="pagination">
+        <li class="page-item" :class="{ disabled: currentPage === 1 }">
+          <a
+            class="page-link"
+            href="#"
+            @click="getPosts(currentPage - 1)"
+            tabindex="-1"
+            >Previous</a
+          >
+        </li>
+        <li
+          v-for="n in lastPage"
+          :key="n"
+          class="page-item"
+          :class="{ active: n === currentPage }"
+        >
+          <a class="page-link" href="#" @click="getPosts(n)"
+            >{{ n }}<span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li
+          class="page-item"
+          :class="currentPage === lastPage ? 'disabled' : ''"
+        >
+          <!-- Modalità alternativa -->
+          <!-- <li class="page-item" :class="{ disabled: currentPage === lastPage }"></li> -->
+          <a class="page-link" href="#" @click="getPosts(currentPage + 1)"
+            >Next</a
+          >
+        </li>
+      </ul>
+    </nav>
   </div>
 </template>
 
@@ -34,23 +68,33 @@ export default {
   data() {
     return {
       posts: [],
+      currentPage: 1,
+      lastPage: 0,
+      totalPosts: 0,
     };
   },
   created() {
     this.getPosts();
   },
   methods: {
-    getPosts() {
-      Axios.get("/api/posts").then((resp) => {
-        this.posts = resp.data.results;
+    getPosts(pageNumber) {
+      Axios.get("/api/posts", {
+        params: {
+          page: pageNumber,
+        },
+      }).then((resp) => {
+        this.posts = resp.data.results.data;
+        this.currentPage = resp.data.results.current_page;
+        this.lastPage = resp.data.results.last_page;
+        this.totalPosts = resp.data.results.total;
       });
     },
     trimText(text, maxCharNum) {
-        if (text.length > maxCharNum) {
-            return text.substring(0, maxCharNum) + '...';
-        }
-        return text;
-    }
+      if (text.length > maxCharNum) {
+        return text.substring(0, maxCharNum) + "...";
+      }
+      return text;
+    },
   },
 };
 </script>
