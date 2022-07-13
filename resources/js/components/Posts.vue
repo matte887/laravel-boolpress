@@ -1,6 +1,7 @@
 <template>
-  <div class="container">
+  <div>
     <h2 class="text-center my-3">Lista Ricette</h2>
+    <p>Qui troverete tutte le nostre ricette. Non sono molte, ma sono tutte buone!</p>
     <p>Totale post: {{ totalPosts }}.</p>
     <div class="row row-cols-3">
       <div class="col" v-for="post in posts" :key="post.id">

@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <h1>Questa è la home</h1>
+    <h1 class="text-center my-3">Questa è la home</h1>
+    <p>Benvenuti sul nostro bel sito di cucina!</p>
   </div>
 </template>
 
