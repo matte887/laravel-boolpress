@@ -1,8 +1,19 @@
 <template>
   <div>
     <h2 class="text-center my-3">Lista Ricette</h2>
-    <p>Qui troverete tutte le nostre ricette. Non sono molte, ma sono tutte buone!</p>
+    <p>
+      Qui troverete tutte le nostre ricette. Non sono molte, ma sono tutte
+      buone!
+    </p>
     <p>Totale post: {{ totalPosts }}.</p>
+    <div>
+      <span class="mr-3">Post per pagina:</span>
+      <select class="custom-select w-auto" @change="getPosts(1)" v-model="postPerPage">
+        <option value="3">3</option>
+        <option value="6">6</option>
+        <option value="9">9</option>
+      </select>
+    </div>
     <div class="row row-cols-3">
       <div class="col" v-for="post in posts" :key="post.id">
         <div class="card my-3">
@@ -72,6 +83,7 @@ export default {
       currentPage: 1,
       lastPage: 0,
       totalPosts: 0,
+      postPerPage: 9
     };
   },
   created() {
@@ -82,6 +94,7 @@ export default {
       Axios.get("/api/posts", {
         params: {
           page: pageNumber,
+          posts_per_page: this.postPerPage,
         },
       }).then((resp) => {
         this.posts = resp.data.results.data;

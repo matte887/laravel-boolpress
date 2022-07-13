@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index() {
-        $posts = Post::paginate(6);
+    public function index(Request $request) {
+        $posts = Post::paginate($request->posts_per_page);
         return response()->json([
             'success' => true,
             'results' => $posts

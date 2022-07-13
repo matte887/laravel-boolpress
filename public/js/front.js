@@ -1931,7 +1931,8 @@ __webpack_require__.r(__webpack_exports__);
       posts: [],
       currentPage: 1,
       lastPage: 0,
-      totalPosts: 0
+      totalPosts: 0,
+      postPerPage: 9
     };
   },
   created: function created() {
@@ -1943,7 +1944,8 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/posts", {
         params: {
-          page: pageNumber
+          page: pageNumber,
+          posts_per_page: this.postPerPage
         }
       }).then(function (resp) {
         _this.posts = resp.data.results.data;
@@ -2038,7 +2040,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Header.vue */ "./resources/js/components/Header.vue");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "app",
+  name: "App",
   components: {
     Header: _components_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -2155,7 +2157,42 @@ var render = function render() {
 
   return _c("div", [_c("h2", {
     staticClass: "text-center my-3"
-  }, [_vm._v("Lista Ricette")]), _vm._v(" "), _c("p", [_vm._v("Qui troverete tutte le nostre ricette. Non sono molte, ma sono tutte buone!")]), _vm._v(" "), _c("p", [_vm._v("Totale post: " + _vm._s(_vm.totalPosts) + ".")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Lista Ricette")]), _vm._v(" "), _c("p", [_vm._v("\r\n      Qui troverete tutte le nostre ricette. Non sono molte, ma sono tutte\r\n      buone!\r\n    ")]), _vm._v(" "), _c("p", [_vm._v("Totale post: " + _vm._s(_vm.totalPosts) + ".")]), _vm._v(" "), _c("div", [_c("span", {
+    staticClass: "mr-3"
+  }, [_vm._v("Post per pagina:")]), _vm._v(" "), _c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.postPerPage,
+      expression: "postPerPage"
+    }],
+    staticClass: "custom-select w-auto",
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.postPerPage = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, function ($event) {
+        return _vm.getPosts(1);
+      }]
+    }
+  }, [_c("option", {
+    attrs: {
+      value: "3"
+    }
+  }, [_vm._v("3")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "6"
+    }
+  }, [_vm._v("6")]), _vm._v(" "), _c("option", {
+    attrs: {
+      value: "9"
+    }
+  }, [_vm._v("9")])])]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-3"
   }, _vm._l(_vm.posts, function (post) {
     return _c("div", {
