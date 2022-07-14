@@ -16,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('posts', 'Api\PostController@index')->name('api.posts.index');
 Route::get('post/{slug}', 'Api\PostController@show')->name('api.post.show');
+
+Route::get('tag/{slug}', 'Api\TagsController@show')->name('api.tag.show');
