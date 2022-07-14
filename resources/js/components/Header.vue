@@ -31,6 +31,11 @@
                 >Blog <span class="sr-only">(current)</span></router-link
               >
             </li>
+            <li class="nav-item active">
+              <router-link class="nav-link" :to="{name: 'tags'}" 
+                >Tags <span class="sr-only">(current)</span></router-link
+              >
+            </li>
           </ul>
         </div>
       </div>

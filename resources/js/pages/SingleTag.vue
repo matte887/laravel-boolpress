@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h2>Pagina singolo tag</h2>
+  <div class="container my-5">
+    <h2>Ricetter col tag "{{ this.$route.params.slug }}"</h2>
     <div class="row row-cols-3">
       <div class="col" v-for="post in posts" :key="post.id">
         <PostCard :post="post" />
@@ -15,7 +15,7 @@ export default {
   name: "SingleTag",
   data() {
     return {
-      posts: null,
+      posts: null
     };
   },
   components: {
