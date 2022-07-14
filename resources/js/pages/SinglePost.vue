@@ -6,7 +6,9 @@
       <div>
         <p>Tags:</p>
         <ul>
-          <li v-for="(tag, id) in post.tags" :key="id">{{ tag.name }}</li>
+          <li v-for="(tag, id) in post.tags" :key="id">
+            <router-link :to="{ name: 'single-tag', params: { slug: tag.slug } }">{{ tag.name }}</router-link>
+          </li>
         </ul>
       </div>
       <p>{{ post.content }}</p>
@@ -30,7 +32,9 @@ export default {
   },
   computed: {
     getCategory() {
-      return this.post.category ? this.post.category.name : "nessuna categoria selezionata.";
+      return this.post.category
+        ? this.post.category.name
+        : "nessuna categoria selezionata.";
     },
   },
   methods: {
