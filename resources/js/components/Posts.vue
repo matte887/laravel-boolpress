@@ -8,7 +8,11 @@
     <p>Totale post: {{ totalPosts }}.</p>
     <div>
       <span class="mr-3">Post per pagina:</span>
-      <select class="custom-select w-auto" @change="getPosts(1)" v-model="postPerPage">
+      <select
+        class="custom-select w-auto"
+        @change="getPosts(1)"
+        v-model="postPerPage"
+      >
         <option value="3">3</option>
         <option value="6">6</option>
         <option value="9">9</option>
@@ -28,11 +32,12 @@
             <li class="list-group-item">Cras justo odio</li>
             <li class="list-group-item">Dapibus ac facilisis in</li>
             <li class="list-group-item">Vestibulum at eros</li>
-          </ul>
+          </ul> -->
           <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div> -->
+            <router-link :to="{ name: 'single-post', params: {slug: post.slug} }" class="card-link"
+              >Leggi ricetta</router-link
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -83,7 +88,7 @@ export default {
       currentPage: 1,
       lastPage: 0,
       totalPosts: 0,
-      postPerPage: 9
+      postPerPage: 9,
     };
   },
   created() {

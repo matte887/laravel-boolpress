@@ -17,6 +17,7 @@ class PostController extends Controller
     }
 
     public function show($slug) {
+        // Nel with vanno gli attributi delle tabelle collegate che ci interessano. Vedi il model per controllare che siano al singolare o al plurale (anche a logica).
         $post = Post::where('slug', '=', $slug)->with(['category', 'tags'])->first();
         if($post) {
             return response()->json([
