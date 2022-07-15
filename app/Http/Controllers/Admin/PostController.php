@@ -154,6 +154,11 @@ class PostController extends Controller
         $post_to_destroy = Post::findOrFail($id);
         // Questo serve ad eliminare i dati relativi a questo id anche nella tabella ponte (altrimenti potrebbe bloccarsi l'app)
         $post_to_destroy->tags()->sync([]);
+
+        if ($post_to_destroy->cover) {
+            Storage::delete($post_to_destroy->cover);
+        }
+
         $post_to_destroy->delete();
         return redirect()->route('admin.posts.index');
     }
