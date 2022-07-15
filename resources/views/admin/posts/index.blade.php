@@ -7,10 +7,13 @@
             @foreach ($posts as $post)
                 <div class="col">
                     <div class="card mb-5" style="width: 18rem;">
-                        {{-- <img src="..." class="card-img-top" alt="..."> --}}
+                        @if ($post->cover)
+                            <img src="{{ asset('storage/' . $post->cover) }}" class="card-img-top" alt="">
+                        @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $post->title }}</h5>
-                            <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">Show post</a>
+                            <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">Show
+                                post</a>
                         </div>
                     </div>
                 </div>
