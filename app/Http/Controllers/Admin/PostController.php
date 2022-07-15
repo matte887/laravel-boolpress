@@ -118,13 +118,15 @@ class PostController extends Controller
 
         $data = $request->all();
 
+        $post = Post::findOrFail($id);
+
+        // Serve il post per questo, quindi va messa dopo averlo prelevato.
         if (isset($data['image'])) {
-            //  Questa funzione salva il file caricato nell'input con name "image" nella cartella indicata. Inoltre, rinomina il file.
+            Storage::delete($post->cover);
             $img_path = Storage::put('post_covers', $data['image']);
             $data['cover'] = $img_path;
         }
-        
-        $post = Post::findOrFail($id);
+
         // Questa non si può fare perché c'è lo slug che va rigenerato in base al nuovo titolo
         // $post->update($data);
         $post->fill($data);
