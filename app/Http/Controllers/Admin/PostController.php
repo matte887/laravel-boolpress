@@ -122,7 +122,9 @@ class PostController extends Controller
 
         // Serve il post per questo, quindi va messa dopo averlo prelevato.
         if (isset($data['image'])) {
-            Storage::delete($post->cover);
+            if ($post->cover) {
+                Storage::delete($post->cover);
+            }
             $img_path = Storage::put('post_covers', $data['image']);
             $data['cover'] = $img_path;
         }
