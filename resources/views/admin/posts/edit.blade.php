@@ -2,7 +2,7 @@
 
 @section('content')
     <h2>Edit this post</h2>
-    <form action="{{ route('admin.posts.update', ['post' => $this_post->id]) }}" method="POST">
+    <form action="{{ route('admin.posts.update', ['post' => $this_post->id]) }}" method="POST" enctype="multipart/form-data">
         @method('PUT')
         @csrf
 

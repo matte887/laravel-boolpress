@@ -115,7 +115,15 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate($this->getValidationRules());
+
         $data = $request->all();
+
+        if (isset($data['image'])) {
+            //  Questa funzione salva il file caricato nell'input con name "image" nella cartella indicata. Inoltre, rinomina il file.
+            $img_path = Storage::put('post_covers', $data['image']);
+            $data['cover'] = $img_path;
+        }
+        
         $post = Post::findOrFail($id);
         // Questa non si può fare perché c'è lo slug che va rigenerato in base al nuovo titolo
         // $post->update($data);
@@ -149,7 +157,8 @@ class PostController extends Controller
     private function getValidationRules() {
         return [
             'title' => 'required',
-            'image' => 'image|max: 1000',
+            // Questo controlla che sia un immagine. Max controlla le dimensioni massime (in Kb)
+            'image' => 'image|max:512',
             'category_id' => 'nullable|exists:categories,id',
             'content' => 'required',
             'tags' => 'nullable|exists:tags,id'
