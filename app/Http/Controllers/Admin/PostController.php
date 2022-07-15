@@ -50,9 +50,12 @@ class PostController extends Controller
         $data = $request->all();
 
         // Salvataggio immagine
-        //  Questa funzione salva il file caricato nell'input con name "image" nella cartella indicata. Inoltre, rinomina il file.
-        $img_path = Storage::put('post_covers', $data['image']);
-        $data['cover'] = $img_path;
+        // Questo va fatto solo se effettivamente c'è l'immagine nel data
+        if (isset($data['image'])) {
+            //  Questa funzione salva il file caricato nell'input con name "image" nella cartella indicata. Inoltre, rinomina il file.
+            $img_path = Storage::put('post_covers', $data['image']);
+            $data['cover'] = $img_path;
+        }
 
         // Creazione post
         $post = new Post();
