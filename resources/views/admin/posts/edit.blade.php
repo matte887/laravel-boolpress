@@ -18,7 +18,9 @@
                 @foreach ($categories as $category)
                     {{-- <option value="{{ $category->id }}" {{ $this_post->category && $this_post->category->id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option> --}}
                     {{-- Per usare old, si usa una funzionalità di laravel -> old('value', 'default') --}}
-                    <option value="{{ $category->id }}" {{ $this_post->category &&  old('category_id', $this_post->category->id) == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
+                    <option value="{{ $category->id }}"
+                        {{ $this_post->category && old('category_id', $this_post->category->id) == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}</option>
                 @endforeach
 
             </select>
@@ -27,18 +29,28 @@
         <div class="my-4">
             <p>Select tags</p>
             @foreach ($tags as $tag)
-            <div class="form-check">
-                <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}" id="tag-{{ $tag->id }}" {{ ($this_post->tags->contains($tag) || in_array($tag->id, old('tags', []))) ? 'checked' : '' }}>
-                <label class="form-check-label" for="{{ $tag->id }}">
-                    {{ $tag->name }}
-                </label>
-            </div>
+                <div class="form-check">
+                    <input name="tags[]" class="form-check-input" type="checkbox" value="{{ $tag->id }}"
+                        id="tag-{{ $tag->id }}"
+                        {{ $this_post->tags->contains($tag) || in_array($tag->id, old('tags', [])) ? 'checked' : '' }}>
+                    <label class="form-check-label" for="{{ $tag->id }}">
+                        {{ $tag->name }}
+                    </label>
+                </div>
             @endforeach
         </div>
 
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
             <textarea class="form-control" id="content" name="content" rows="10">{{ old('content') ? old('content') : $this_post->content }}</textarea>
+        </div>
+
+        @if ($this_post->cover)
+            <img src="{{ asset('storage/' . $this_post->cover) }}" alt="">
+        @endif
+        <div class="form-group">
+            <label for="cover_img">Sostituisci/carica immagine</label>
+            <input type="file" class="form-control-file" id="cover_img" name="image">
         </div>
 
         @if ($errors->any())
