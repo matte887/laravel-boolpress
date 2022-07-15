@@ -3,10 +3,13 @@
 @section('content')
     <div class="container">
         <h2>{{ $this_post->title }}</h2>
+        @if ($this_post->cover)
+            <img src="{{ asset('storage/' . $this_post->cover) }}" alt="">
+        @endif
         <p>Type: {{ $post_category ? $post_category->name : 'no type assigned' }}</p>
-        <p>Tags: 
+        <p>Tags:
             @forelse ($post_tags as $tag)
-                {{$tag->name}}{{$loop->last ? '.' : ', '}}
+                {{ $tag->name }}{{ $loop->last ? '.' : ', ' }}
             @empty
                 Nessun tag selezionato.
             @endforelse
