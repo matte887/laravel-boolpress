@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -42,8 +43,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        // Validazione dati in arrivo
         $request->validate($this->getValidationRules());
+
+        // Salvataggio dati in una variabile
         $data = $request->all();
+
+        // Salvataggio immagine
+        //  Questa funzione salva il file caricato nell'input con name "image" nella cartella indicata. Inoltre, rinomina il file.
+        $img_path = Storage::put('post_covers', $data['image']);
+        $data['cover'] = $img_path;
+
+        // Creazione post
         $post = new Post();
         $post->fill($data);
         // $post->slug = Str::slug($post->title, '-');
@@ -57,6 +68,7 @@ class PostController extends Controller
         if(isset($data['tags'])) {
             $post->tags()->sync($data['tags']);
         }
+
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
 
