@@ -146,6 +146,7 @@ class PostController extends Controller
     private function getValidationRules() {
         return [
             'title' => 'required',
+            'image' => 'image|max: 1000',
             'category_id' => 'nullable|exists:categories,id',
             'content' => 'required',
             'tags' => 'nullable|exists:tags,id'
