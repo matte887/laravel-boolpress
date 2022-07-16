@@ -75,7 +75,7 @@ class PostController extends Controller
         }
 
         // Invio mail di notifica all'amministratore
-        Mail::to('superadmin@boolpress.it')->send(new NewPostEmailToAdmin);
+        Mail::to('superadmin@boolpress.it')->send(new NewPostEmailToAdmin($post));
 
         return redirect()->route('admin.posts.show', ['post' => $post->id]);
     }
