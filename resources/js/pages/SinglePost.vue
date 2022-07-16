@@ -11,6 +11,7 @@
           </li>
         </ul>
       </div>
+      <img v-if="post.cover" :src="post.cover" alt="post-cover">
       <p>{{ post.content }}</p>
     </div>
     <div class="my-5" v-else>

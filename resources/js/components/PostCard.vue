@@ -1,6 +1,7 @@
 <template>
   <div class="card my-3">
-    <!-- <img class="card-img-top" src="..." alt="Card image cap" /> -->
+    <!-- Attenzione! la src qui sotto funziona solo perché nel controller abbiamo creato il path completo -->
+    <img v-if="post.cover" class="card-img-top" :src="post.cover" alt="post-cover" />
     <div class="card-body">
       <h5 class="card-title">{{ post.title }}</h5>
       <p class="card-text">

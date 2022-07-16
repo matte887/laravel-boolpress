@@ -30,7 +30,7 @@ class Post extends Model
         $basic_slug = Str::slug($title, '-');
         $slug = $basic_slug;
         $counter = 1;
-        $search_post = Post::where('slug', $slug)->first();
+        $search_post = Post::where('slug', '=', $slug)->first();
         while ($search_post) {
             $slug = $basic_slug . '-' . $counter;
             $search_post = Post::where('slug', '=', $slug)->first();

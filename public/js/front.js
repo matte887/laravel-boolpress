@@ -2303,7 +2303,13 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "card my-3"
-  }, [_c("div", {
+  }, [_vm.post.cover ? _c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.post.cover,
+      alt: "post-cover"
+    }
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("h5", {
     staticClass: "card-title"
@@ -2615,7 +2621,12 @@ var render = function render() {
         }
       }
     }, [_vm._v(_vm._s(tag.name))])], 1);
-  }), 0)]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]) : _c("div", {
+  }), 0)]), _vm._v(" "), _vm.post.cover ? _c("img", {
+    attrs: {
+      src: _vm.post.cover,
+      alt: "post-cover"
+    }
+  }) : _vm._e(), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.post.content))])]) : _c("div", {
     staticClass: "my-5"
   }, [_c("h2", [_vm._v("Loading...")])])]);
 };
